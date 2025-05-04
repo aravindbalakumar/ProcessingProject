@@ -1,20 +1,20 @@
-public class Timer implements IFrameUpdate
+public class Timer implements IUpdate
 {
-  private float elapsedTime;
-  private float previousElapsedTime;
-  private float deltaTime;
-  public void  FrameUpdate()
+  public int now;
+  private int prev;
+  public float deltaSecs;
+  int interval=100;
+  public float secs;
+  public int delta;
+  public Timer()
   {
-    elapsedTime=millis()/1000;
-    deltaTime= elapsedTime-previousElapsedTime;
-    previousElapsedTime=elapsedTime;
+    prev=millis();
   }
-  public float time()
+  public void  Update()
   {
-    return elapsedTime;
-  }
-  public float deltaTime()
-  {
-    return deltaTime;
+    now=millis();
+    deltaSecs= (now-prev)/1000.0f;
+    secs+=deltaSecs;
+    prev=now;
   }
 }

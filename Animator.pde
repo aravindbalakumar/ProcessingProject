@@ -1,52 +1,65 @@
-class Animation<T> implements IAnimationEvent
+class Animator  implements IUpdate
 {
-  boolean doesLoop=false, hasStarted=false, hasEnded=false;
-  float time=0;
-
-  T startValue;
-  T endValue;
-  public void Tick(){}
-  public void CreateAnimation(T startValue, T endValue)
+  HashMap<Float, ArrayList<AnimClip>> timeLine;
+  float endTime=0.0f;
+  public Animator()
   {
-    this.startValue=startValue;
-    this.endValue=endValue;
+    timeLine= new HashMap<Float, ArrayList<AnimClip>>();
   }
-  public void OnClipStart() {
+
+  public void add(AnimClip clip)
+  {
+    if (CheckAndAddClipToTimeLine(clip, endTime))
+    {
+      endTime=endTime+clip.duration;
+      //println(endTime);
+    }
   }
-  public void OnTime(float time) {
+
+  public void addAt(AnimClip clip, float timeFrame)
+  {
+    if (CheckAndAddClipToTimeLine(clip, timeFrame))
+    {
+      if (timeFrame +clip.duration >endTime)
+      {
+        endTime=timeFrame+clip.duration;
+      }
+    }
   }
-  public void OnClipEnd() {
+  public void Update()
+  {
+    ArrayList<AnimClip> value=GetValuesAtTime(project.timer.secs);
+    if (value!=null)
+    {
+      for (AnimClip ac : value)
+      {
+        ac.OnClipStart();   
+        project.updateObjects.add(ac);
+      }
+    }
   }
-  public float GetTime() {
-    return time;
+  public boolean CheckAndAddClipToTimeLine(AnimClip clip, float timeFrame)
+  {
+    if (timeLine==null) return false;
+
+    if (timeLine.containsKey(timeFrame))
+    {
+      timeLine.get(timeFrame).add(clip);
+      return true;
+    } else
+    {
+      ArrayList<AnimClip> animations= new ArrayList();
+      animations.add(clip);
+      timeLine.put(timeFrame, animations);
+      return true;
+    }
   }
-  public void SetDutaion() {
+
+  public ArrayList GetValuesAtTime(float timeFrame)
+  {
+    if (timeLine.containsKey(timeFrame))
+    {
+      return timeLine.get(timeFrame);
+    } else return null;
   }
-  public boolean GetLoop() {
-    return doesLoop;
-  }
-  public void SetLoop(boolean doesLoop) {
-    this.doesLoop=doesLoop;
-  }
-}
-public enum Datatype
-{
-  DAT_Vector,
-    DAT_Float,
-    DAT_Int,
-}
-interface IFrameUpdate
-{
-  public void FrameUpdate();
-}
-interface IAnimationEvent
-{
-  public void OnClipStart();
-  public void OnTime(float time);
-  public void OnClipEnd();
-  public float GetTime();
-  public void Tick();
-  public void SetDutaion();
-  public boolean GetLoop();
-  public void SetLoop(boolean doesLoop);
 }
