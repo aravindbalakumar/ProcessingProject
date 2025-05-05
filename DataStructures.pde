@@ -1,3 +1,7 @@
+public enum AnimProperty
+{
+  POSITION, ROTATION, COLOR, SIZE
+}
 interface IUpdate
 {
   public void Update();
