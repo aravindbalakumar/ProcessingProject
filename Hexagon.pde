@@ -15,13 +15,22 @@ class Hexagon extends ShapeData
   {
     customShape=createShape();
     customShape.beginShape();
-    for (int i=0; i<6; i++) {
-      var radianValue= radians(i*60);
-      customShape.vertex(size.x* cos(radianValue), size.x*sin(radianValue),layer);
+    float radianSegment= TWO_PI/6;
+    int j=0;
+    for (float i=0; i<TWO_PI; i=i+radianSegment) {
+      
+      customShape.vertex(size.x* cos(i), size.x*sin(i), layer);
+      print(j+"=> "+size.x* cos(i)+" , "+size.x*sin(i));
+      println();
+      j++;
     }
+    println();
+    println();
+    println();
+    println();
     customShape.endShape(CLOSE);
   }
-  
+
   public PVector GetRandomVertexPoint()
   {
     int randomIndex=int( random(customShape.getVertexCount()));

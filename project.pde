@@ -15,17 +15,16 @@ void setup()
   timer= new  Timer();
   updateObjects= new ArrayList<IUpdate>();
   updateObjects.add(timer);
-  //updateObjects.add(new ShapeUpdate(
-  //new Hexagon(new PVector(width/2,height/2,2),new PVector(30,30),WHITE,2),0));
+ 
   hexTrail = new HexagonTrail();
-  hexTrail.CreateHexagon(true, new PVector(width/2, height/2, 2), new PVector(100, 100),null);
-  //delay(1000);
+  hexTrail.CreateHexagon(true, int(random(2, 13)), new PVector(width/2, height/2, 2), new PVector(100, 100), null);
   updateObjects.addAll(hexTrail.hexagons);
-  //slitLoadingScreen= new SlitLoadingScreen(32);
+  
+  //slitLoadingScreen= new SlitLoadingScreen(64);
 }
 void mouseMoved()
 {
-  hexTrail.rootHex.SetPosition(new PVector(mouseX,mouseY));
+  //hexTrail.rootHex.SetPosition(new PVector(mouseX, mouseY));
 }
 void draw()
 {
@@ -34,4 +33,5 @@ void draw()
   {
     object.Update();
   }
+  hexTrail.SetRandomPath();
 }

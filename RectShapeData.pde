@@ -5,10 +5,10 @@ class RectShapeData extends ShapeData
   {
     super(position, size);
   }
-  
-  public RectShapeData(PVector position, PVector size,color fillColor,int layer)
+
+  public RectShapeData(PVector position, PVector size, color fillColor, int layer)
   {
-    super(position, size,fillColor,layer);
+    super(position, size, fillColor, layer);
   }
   @Override
     public void Initialize()
@@ -17,11 +17,11 @@ class RectShapeData extends ShapeData
     fill(fillColor);
     customShape=createShape();
     customShape.beginShape();
-    customShape.vertex(-halfSize.x, -halfSize.y,layer);
-    customShape.vertex(halfSize.x, -halfSize.y,layer);
-    customShape.vertex(halfSize.x, halfSize.y,layer);
-    customShape.vertex(-halfSize.x, halfSize.y,layer);
-    customShape.vertex(-halfSize.x, -halfSize.y,layer);
+    customShape.vertex(-halfSize.x, -halfSize.y, layer);
+    customShape.vertex(halfSize.x, -halfSize.y, layer);
+    customShape.vertex(halfSize.x, halfSize.y, layer);
+    customShape.vertex(-halfSize.x, halfSize.y, layer);
+    customShape.vertex(-halfSize.x, -halfSize.y, layer);
     customShape.endShape();
     super.Initialize();
   }
