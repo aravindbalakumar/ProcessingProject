@@ -5,7 +5,7 @@ class ShapeData
   protected PVector halfSize;
   protected int layer;
   protected color fillColor;
-  protected float rotation,oldRotation;
+  protected float rotation;
   protected PShape customShape;
   public boolean isInitialized;
 
@@ -64,8 +64,7 @@ class ShapeData
   }
   public void SetRotation(float radians)
   {
-    rotation=oldRotation-radians;
-    oldRotation=rotation;
+    rotation=radians;
      customShape.rotate(rotation);
   }
 

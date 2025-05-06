@@ -8,6 +8,7 @@ class ShapeUpdate implements IUpdate
   float travelDuration;
   float delayedStart;
   float time;
+  float pathAngle=0,oldPathAngle=0;
   PVector follow_offset, p1,p2,p3;
   public ShapeData shapeData;
   ShapeData  follow_ref;
@@ -31,6 +32,7 @@ class ShapeUpdate implements IUpdate
     this.p1=p1;
     this.p2=p2;
     this.p3=p3;
+    pathAngle=atan2(p1.y - p3.y, p1.x - p3.x);
     isTravellingToAPoint=true;
     this.travelDuration=travelDuration;
   }
@@ -66,10 +68,8 @@ class ShapeUpdate implements IUpdate
         if (time<=travelDuration)
         {
           //shapeData.SetPosition(PVector.lerp(start, destination, time/travelDuration)); this for somre reason not working
-          var newPoint=GetPointOnBeizerCurve(p1,p2,p3);
-          
-          shapeData.SetRotation( atan2(p1.y - newPoint.y, p1.x - newPoint.x));
-          shapeData.SetPosition(newPoint);
+          shapeData.SetRotation(lerp(oldPathAngle,pathAngle,time/travelDuration));
+          shapeData.SetPosition(GetPointOnBeizerCurve(p1,p2,p3));
           time+=project.timer.deltaSecs;
         } else
         {
