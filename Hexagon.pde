@@ -16,19 +16,12 @@ class Hexagon extends ShapeData
     customShape=createShape();
     customShape.beginShape();
     float radianSegment= TWO_PI/6;
-    int j=0;
     for (float i=0; i<TWO_PI; i=i+radianSegment) {
-      
+
       customShape.vertex(size.x* cos(i), size.x*sin(i), layer);
-      print(j+"=> "+size.x* cos(i)+" , "+size.x*sin(i));
-      println();
-      j++;
     }
-    println();
-    println();
-    println();
-    println();
     customShape.endShape(CLOSE);
+    super.Initialize();
   }
 
   public PVector GetRandomVertexPoint()

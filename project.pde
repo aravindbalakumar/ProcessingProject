@@ -18,7 +18,7 @@ void setup()
  
   hexTrail = new HexagonTrail();
   hexTrail.CreateHexagon(true, int(random(2, 13)), new PVector(width/2, height/2, 2), new PVector(100, 100), null);
-  updateObjects.addAll(hexTrail.hexagons);
+  updateObjects.addAll(hexTrail.draws);
   
   //slitLoadingScreen= new SlitLoadingScreen(64);
 }
@@ -29,9 +29,10 @@ void mouseMoved()
 void draw()
 {
   background(WHITE);
+  hexTrail.StartMoving();
   for (IUpdate object : updateObjects)
   {
     object.Update();
   }
-  hexTrail.SetRandomPath();
+  
 }

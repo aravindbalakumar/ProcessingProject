@@ -5,7 +5,7 @@ class ShapeData
   protected PVector halfSize;
   protected int layer;
   protected color fillColor;
-  protected float rotation;
+  protected float rotation,oldRotation;
   protected PShape customShape;
   public boolean isInitialized;
 
@@ -62,10 +62,11 @@ class ShapeData
   {
     this.fillColor=fillColor;
   }
-
-  public void SetShape(PShape incomingShape)
+  public void SetRotation(float radians)
   {
-    customShape=incomingShape;
+    rotation=oldRotation-radians;
+    oldRotation=rotation;
+     customShape.rotate(rotation);
   }
 
   public void SetShape(PShape incomingShape, PVector position, PVector size)
@@ -82,6 +83,7 @@ class ShapeData
   public void Draw()
   {
     fill(fillColor);
+   
     shape(customShape, position.x, position.y);
   }
 }
