@@ -1,6 +1,6 @@
-class RainDrop extends ShapeData
+class RainDrop extends ShapeData implements IUpdate
 {
-
+  float gravity=9.8;
   public RainDrop(PVector position)
   {
     super(position, new PVector(7, 15)); //we are keeping it constant for showcasing the raindrop
@@ -19,7 +19,17 @@ class RainDrop extends ShapeData
     customShape.vertex(0, -size.y);
     customShape.vertex(-size.x/2, -size.y/6);
     customShape.vertex(-size.x/size.x, 0);
-    customShape.vertex(0, 0);
-    customShape.endShape();
+    customShape.endShape(CLOSE);
+  }
+
+  public void Update()
+  {
+    if (position.y+gravity<project.BOUNDS_MAX.y) {
+      SetPosition(new PVector(position.x, position.y+gravity));
+    } else
+    {
+      SetPosition(new PVector(position.x, project.BOUNDS_MIN.y));
+    }
+    Draw();
   }
 }

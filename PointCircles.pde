@@ -7,12 +7,10 @@ public class PointCircle extends ShapeData
   @Override
     public void Initialize()
   {
-    stroke(2);
-    fillColor=color(0, 0, 0, 255);
-    fill(fillColor);
-    customShape.fill(fillColor);
-    customShape= createShape(RECT, position.x, position.y, size.x, size.y);
+    
+    customShape= createShape(ELLIPSE, position.x, position.y, size.x, size.y);
     customShape.setStroke(255);
+    customShape.fill(fillColor);
     super.Initialize();
   }
 }
