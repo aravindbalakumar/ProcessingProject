@@ -70,7 +70,7 @@ public class HexagonPathRunner
       // the angle is calculated from the perlin noise that takes from the frame rate, to make sure it happens smoothly we are using map
       float angle=map(noise(random(frameRate)), 0, 1, PI, TWO_PI);
       float cosT=cos(angle);
-      float sinT=cos(angle);
+      float sinT=sin(angle);
       
        //using circle formula for create a control point, this is done intentioanlly so that we can get a curved path
        //the cicrle formula used is X= rCos(Theta), y= rSin(theta)
