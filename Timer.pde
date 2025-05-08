@@ -16,3 +16,6 @@ public class Timer implements IUpdate
     prev=now;
   }
 }
+
+//hexagons for symmettry
+//3d depth feeling with stacks and moving
