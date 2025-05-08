@@ -1,30 +1,31 @@
-
-class ShapeUpdate implements IUpdate
+// class that handles all the shapes functionality including pathing and following
+class ShapeManager implements IUpdate
 {
 
   boolean hasStarted=false;
   boolean shouldFollow=false;
-  boolean isTravellingToAPoint=false;
+  boolean isItMovingOnPath=false;
   float travelDuration;
   float delayedStart;
   float time;
   float offset;
-  float pathAngle=0, oldPathAngle=0;
+  PVector midPoint;
   PVector p1, cp, p2;
-  public ShapeData shapeData;
+  public Shape shape;
   PShape path=null, curve, start, end;
-  ShapeData  follow_ref;
+  Shape  shapeToFollow;
 
 
-  public ShapeUpdate(ShapeData shapeData, float delayedStart)
+  public ShapeManager(Shape shapeData, float delayedStart)
   {
-    this.shapeData=shapeData;
+    this.shape=shapeData;
     this.delayedStart=delayedStart;
   }
 
-  public void Follow(ShapeData follow_ref, float offset)
+  // to initialize following another shape
+  public void Follow(Shape follow_ref, float offset)
   {
-    this.follow_ref=follow_ref;
+    this.shapeToFollow=follow_ref;
     this.offset=offset;
     shouldFollow=true;
   }
@@ -34,30 +35,38 @@ class ShapeUpdate implements IUpdate
     this.p1=p1;
     this.cp=cp;
     this.p2=p2;
+    midPoint=new PVector((p1.x+p2.x)/2, (p1.y+p2.y)/2);
     if (path!=null)
     {
       path=null;
     }
-
-    stroke(shapeData.fillColor);
+    
+    // startin dot shape
+    pushStyle();
+    stroke(shape.fillColor);
     noFill();
-    start= createShape(ELLIPSE, p1.x, p1.y, 10, 10);
-
-    fill(shapeData.fillColor);
+    start= createShape(ELLIPSE, p1.x, p1.y, 10, 10);// size of 10 is kept to properly align witth the hexagons 
+    popStyle();
+    
+    // endng  shape
+    pushStyle();
+    fill(shape.fillColor);
     noStroke();
     end= createShape(ELLIPSE, p2.x, p2.y, 10, 10);
-
+    popStyle();
+    
+    
     //stroke(shapeData.fillColor);
     noFill();
     curve= createShape();
     curve.beginShape();
-    curve.stroke(shapeData.fillColor);
-    curve.curveVertex(p1.x, p1.y, shapeData.layer);
+    curve.stroke(shape.fillColor);
+    curve.curveVertex(p1.x, p1.y, shape.layer);// usef of curve vertex to show how the curve looks smoothly
     for (float i=0; i<1.05; i=i+0.05) {
       var point=GetPointOnBeizerCurve(p1, cp, p2, i);
-      curve.curveVertex(point.x, point.y, shapeData.layer);
+      curve.curveVertex(point.x, point.y, shape.layer);
     }
-    curve.curveVertex(p2.x, p2.y, shapeData.layer);
+    curve.curveVertex(p2.x, p2.y, shape.layer);
     curve.endShape();
 
 
@@ -65,11 +74,12 @@ class ShapeUpdate implements IUpdate
     path.addChild(start);
     path.addChild(curve);
     path.addChild(end);
-    isTravellingToAPoint=true;
+    isItMovingOnPath=true;
     this.travelDuration=travelDuration;
   }
 
 
+  // returns the vector at point p
   public PVector GetPointOnBeizerCurve(PVector p1, PVector p2, PVector p3, float percent)
   {
     PVector point=null;
@@ -86,44 +96,40 @@ class ShapeUpdate implements IUpdate
       {
         time=0;// reseting the time
         hasStarted=true;
-        if (!shapeData.isInitialized)
+        if (!shape.isInitialized)
         {
-          shapeData.Initialize();
+          shape.Initialize();
         }
-      }
-      else
+      } else
       {
         time+=project.timer.deltaSecs;
       }
     } else
     {
-      if (isTravellingToAPoint)
+      if (isItMovingOnPath)
       {
         if (time<=travelDuration)
         {
-          //shapeData.SetPosition(PVector.lerp(start, destination, time/travelDuration)); this for somre reason not working
 
-          //pathAngle=atan2(p1.y - p2.y, p1.x - p2.x);
-          //shapeData.SetRotation(lerp(oldPathAngle,pathAngle,time/travelDuration));
-          shapeData.SetPosition(GetPointOnBeizerCurve(p1, cp, p2, time/travelDuration));
+          shape.position=GetPointOnBeizerCurve(p1, cp, p2, time/travelDuration);
           time+=project.timer.deltaSecs;
         } else
         {
           time=0;
-          shapeData.SetPosition(p2);
-          isTravellingToAPoint=false;
+          shape.position=p2;
+          isItMovingOnPath=false;
         }
         shape(path, 0, 0);
       }
       if (shouldFollow) {
         //shapeData.SetPosition(follow_ref.GetPosition());
-        shapeData.SetPosition(PVector.lerp(shapeData.GetPosition(), follow_ref.GetPosition(), offset));// the lerp is done for the tracing with
+        shape.position=PVector.lerp(shape.position, shapeToFollow.position, offset);// the lerp is done for the tracing with follow object but with a offset ranging from 0 to 1
       }
       DrawShape();
     }
   }
   public void DrawShape()
   {
-    shapeData.Draw();
+    shape.Draw();
   }
 }

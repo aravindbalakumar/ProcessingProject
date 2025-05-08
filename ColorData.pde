@@ -1,9 +1,9 @@
 import java.util.*;
+/// this is class where the all the color data used accross the sketch is saved
 public class ColorData
 {
   public  color BLACK ;
   public  color WHITE ;
-
   ArrayList<Integer> secondaryColors;
   //Array<color> secondaryColors= new ArrayList<int>();
   public ColorData()
@@ -21,10 +21,12 @@ public class ColorData
     secondaryColors.add(#00ccff);//lightblue
     secondaryColors.add(#00ffff);//Aqua
     secondaryColors.add(#c19233);//Brown
+    secondaryColors.add(#4169E1);// dark blue
+    secondaryColors.add(#E6E6FA);//lavanderish purple
     
     
   }
-  
+  // returns a random color from the pool of secondary color;
   public color GetRandomColor()
   {
    return secondaryColors.get(int(random(0,secondaryColors.size()-1)));

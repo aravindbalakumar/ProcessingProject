@@ -1,13 +1,5 @@
-public enum AnimProperty
-{
-  POSITION, ROTATION, COLOR, SIZE
-}
+//Intferface for grouping all the Update calls into a single list for ease of acccess
 interface IUpdate
 {
   public void Update();
-}
-interface IAnimationEvent
-{
-  public void OnClipStart();
-  public void OnClipEnd();
 }

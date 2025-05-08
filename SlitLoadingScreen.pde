@@ -1,13 +1,14 @@
-public class SlitLoadingScreen //<>//
+// the sliding slit loading screen //<>//
+public class SlidingSlitLoadingScreen
 {
   int widthPerSeg=0;
-  public SlitLoadingScreen(int slitDivisions,float delay)
+  public SlidingSlitLoadingScreen(int slitCounts,float delay)
   {
-    widthPerSeg=width/slitDivisions;
+    widthPerSeg=width/slitCounts;
     float animDuration=4.5f;
-    ShapeUpdate fullScreen= new ShapeUpdate( new RectShapeData(new PVector( width/2, height/2), new PVector( width, height),project.colorData.BLACK,-2), (delay+animDuration)-0.01);
+    ShapeManager fullScreen= new ShapeManager( new RectShapeData(new PVector( width/2, height/2), new PVector( width, height),project.colorData.BLACK,-2), (delay+animDuration)-0.01);
     project.UpdateObjects.add(fullScreen);
-    for (int i=0; i<slitDivisions; i++)
+    for (int i=0; i<slitCounts; i++)
     {
       int partition= round(random(0, 101));
       int botHeightSeg= round(partition*height/100);
@@ -24,10 +25,10 @@ public class SlitLoadingScreen //<>//
       top_rect.fillColor=project.colorData.BLACK;
 
       project.UpdateObjects.add(
-        new Anim(bot_rect, AnimProperty.POSITION, delay, bot_pos, new PVector(bot_pos.x, bot_pos.y-botHeightSeg), animDuration, false));
+        new Anim(bot_rect, delay, bot_pos, new PVector(bot_pos.x, bot_pos.y-botHeightSeg), animDuration, false));
 
       project.UpdateObjects.add(
-        new Anim(top_rect, AnimProperty.POSITION, delay, top_pos, new PVector(top_pos.x, top_pos.y+topHeightSeg), animDuration, false));
+        new Anim(top_rect, delay, top_pos, new PVector(top_pos.x, top_pos.y+topHeightSeg), animDuration, false));
     }
   }
 }

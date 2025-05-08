@@ -1,62 +1,62 @@
 
-class Anim extends ShapeUpdate implements IUpdate
+/// this Class is just created to handle animation which is an child class of shapeupdate 
+class Anim extends ShapeManager
 {
 
   boolean hasEnded=false;
   float time=0;
-  float endTime=0;
+  float endTime=0; // total duration including the delay
   float duration;
-  PVector startValue;
-  PVector endValue;
-  boolean retention;
-  AnimProperty animProperty;
+  PVector startValue; // start value
+  PVector endValue; // endvalue
+  boolean retention;// should the shapeObject be retained after animation
 
   public PVector value;
 
-  public Anim(ShapeData shapeData, AnimProperty animProperty, float delay, PVector startValue, PVector endValue, float duration)
+  public Anim(Shape shapeData, float delay, PVector startValue, PVector endValue, float duration)
   {
     super(shapeData, delay);
     this.duration=duration;
     this.startValue=startValue;
     this.endValue=endValue;
-    this.animProperty=animProperty;
     this.retention=true;
   }
-  public Anim(ShapeData shapeData, AnimProperty animProperty, float delay, PVector startValue, PVector endValue, float duration, boolean retention)
+  public Anim(Shape shapeData, float delay, PVector startValue, PVector endValue, float duration, boolean retention)
   {
     super(shapeData, delay);
     this.duration=duration;
     this.startValue=startValue;
     this.endValue=endValue;
-    this.animProperty=animProperty;
     this.retention=retention;
   }
   @Override
     public void DrawShape()
   {
-    if (hasEnded)
+    if (hasEnded) // has the anim ended ?
     {
-      if (retention)
+      if (retention) // does the anim has to render after ending
       {
-        shapeData.Draw();
+        shape.Draw();
       }
       return;
     }
-    if (hasStarted) {
+    if (hasStarted) { // checks if the animation is started, this boolean is set in the shapeUpdate after any delay duration
 
-      if (time<=duration)
+      if (time<=duration)  //checking time to lerp the value and update the movement
       {
-        value=PVector.lerp(startValue, endValue, time/duration);
+        value=PVector.lerp(startValue, endValue, time/duration); // time/duration will act as percentage for the lerp
         UpdateAnimValueToShape();
       } else
       {
+        //come here once the time has been reached the duration
         value=endValue;
         UpdateAnimValueToShape();
         hasEnded=true;
       }
     }
-
+    
     if (!hasEnded) {
+      // if it is still not ended increment the time by delta secs
       time+=project.timer.deltaSecs;
     }
   }
@@ -64,22 +64,7 @@ class Anim extends ShapeUpdate implements IUpdate
 
   private void UpdateAnimValueToShape()
   {
-    switch(animProperty)
-    {
-    case POSITION:
-
-      shapeData.SetPosition(value);
-      break;
-    case ROTATION:
-      shapeData.rotation=value.x;
-      break;
-    case COLOR:
-      shapeData.fillColor=color(value.x, value.y, value.z);
-      break;
-    case SIZE:
-      shapeData.SetSize(value);
-      break;
-    }
-    shapeData.Draw();
+    shape.position=value;
+    shape.Draw();
   }
 }
