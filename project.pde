@@ -2,43 +2,45 @@ final static int C_FRAMERATE= 45;
 static Timer timer;
 static PVector BOUNDS_MIN;
 static PVector BOUNDS_MAX;
-static color BLACK ;
-static color WHITE ;
-static ArrayList<IUpdate> updateObjects;
+static ColorData colorData;
+static ArrayList<IUpdate> UpdateObjects;
+static PFont  font;
+static  SoundFile bounceSound;
 SlitLoadingScreen slitLoadingScreen;
 HexagonMotion hexagonMotion;
+TextIntro textIntro;
 
 void setup()
 {
   size(1024, 1024, P3D);
   colorMode(RGB, 1);
+
   frameRate(C_FRAMERATE);
-  constants();
-  timer= new  Timer();
-  updateObjects= new ArrayList<IUpdate>();
-delay(1000);
-  hexagonMotion = new HexagonMotion();
-  hexagonMotion.CreateMotionData(int(random(2, 3)), random(70, 125));
-  updateObjects.add(timer);
-  updateObjects.add(hexagonMotion);
-  Rain rain= new Rain();
-  rain.RandRainMotion();
-  slitLoadingScreen= new SlitLoadingScreen(64);
+  Initialize();
 }
 
 void draw()
 {
-  background(WHITE);
-  for (IUpdate object : updateObjects)
+  background(colorData.WHITE);
+  for (IUpdate object : UpdateObjects)
   {
     object.Update();
   }
 }
 
-void constants()
+void Initialize()
 {
   BOUNDS_MIN= new PVector(100, 100);
-  BOUNDS_MAX= new PVector(900, 900);
-  BLACK=color(0, 0, 0);
-  WHITE= color(255, 255, 255);
+  BOUNDS_MAX= new PVector(width-BOUNDS_MIN.x, height-BOUNDS_MIN.y);
+  colorData= new ColorData();
+  bounceSound = new SoundFile(this,"Assets/bounce.wav");
+  font=createFont("Assets/Roboto.ttf", 48);
+  timer= new  Timer();
+  UpdateObjects= new ArrayList<IUpdate>();
+  hexagonMotion = new HexagonMotion(9.5);
+  hexagonMotion.CreateMotionData(int(random(3, 10)), random(70, 125));
+  textIntro= new TextIntro(5, "JUMPING HEXAGONS", 2.5, 2);
+  slitLoadingScreen= new SlitLoadingScreen(64, 4.5);
+  UpdateObjects.add(timer);
+  UpdateObjects.add(hexagonMotion);
 }

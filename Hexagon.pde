@@ -1,21 +1,19 @@
 class Hexagon extends ShapeData
 {
 
-  public Hexagon(PVector position, PVector size )
+  public Hexagon(PVector position, float size, int layer )
   {
-    super(position, size);
-  }
-
-  public Hexagon(PVector position, PVector size, color incomingColor, int layer)
-  {
-    super(position, size, incomingColor, layer);
+    super(position, new PVector(size, size));
+    this.layer=layer;
   }
   @Override
     public void Initialize()
   {
+    float radianSegment= TWO_PI/6;
     customShape=createShape();
     customShape.beginShape();
-    float radianSegment= TWO_PI/6;
+    customShape.stroke(fillColor);
+    customShape.noFill();
     for (float i=0; i<TWO_PI; i=i+radianSegment) {
 
       customShape.vertex(size.x* cos(i), size.x*sin(i), layer);
@@ -23,10 +21,14 @@ class Hexagon extends ShapeData
     customShape.endShape(CLOSE);
     super.Initialize();
   }
-
-  public PVector GetRandomVertexPoint()
+  @Override
+    public void Draw()
   {
-    int randomIndex=int( random(customShape.getVertexCount()));
-    return customShape.getVertex(randomIndex);
+    shape(customShape, position.x, position.y);
   }
+  //public PVector GetRandomVertexPoint()
+  //{
+  //  int randomIndex=int( random(customShape.getVertexCount()));
+  //  return customShape.getVertex(randomIndex);
+  //}
 }

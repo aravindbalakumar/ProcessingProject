@@ -1,17 +1,19 @@
 public class HexagonMotion implements IUpdate //<>//
 {
+  float time=0, delay;
   public ArrayList<HexagonPathRunner> runners;
-  public HexagonMotion()
+  public HexagonMotion(float delay)
   {
+    this.delay=delay;
     runners= new ArrayList<HexagonPathRunner>();
   }
   public void CreateMotionData(int childCount, float size)
   {
-    HexagonPathRunner pathRunner= new HexagonPathRunner(new PVector(random(project.BOUNDS_MIN.x, project.BOUNDS_MAX.x), random(project.BOUNDS_MIN.y, project.BOUNDS_MAX.y)), size);
-    runners.add(pathRunner);
-
     if (childCount>0)
     {
+      HexagonPathRunner pathRunner= new HexagonPathRunner();
+      pathRunner.CreatePathRunners(new PVector(random(project.BOUNDS_MIN.x, project.BOUNDS_MAX.x), random(project.BOUNDS_MIN.y, project.BOUNDS_MAX.y)), size);
+      runners.add(pathRunner);
       var newSize= size *random(0.825, 1.175);
       childCount=childCount-1;
       CreateMotionData( childCount, newSize);
@@ -19,9 +21,15 @@ public class HexagonMotion implements IUpdate //<>//
   }
   public void Update()
   {
-    for(var run: runners)
+    if (time<delay)
     {
-      run.MoveAlongThePath();
+      time=time+project.timer.deltaSecs;
+    } else
+    {
+      for (var run : runners)
+      {
+        run.MoveAlongThePath();
+      }
     }
   }
 }

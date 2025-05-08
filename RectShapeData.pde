@@ -13,10 +13,12 @@ class RectShapeData extends ShapeData
   @Override
     public void Initialize()
   {
-    strokeWeight(0);
-    fill(fillColor);
+    //strokeWeight(0);
+    //fill(fillColor);
     customShape=createShape();
     customShape.beginShape();
+    customShape.noStroke();
+    customShape.fill(fillColor);
     customShape.vertex(-halfSize.x, -halfSize.y, layer);
     customShape.vertex(halfSize.x, -halfSize.y, layer);
     customShape.vertex(halfSize.x, halfSize.y, layer);

@@ -15,7 +15,7 @@ class ShapeData
     SetPosition(position);
     SetSize(size);
     layer=0;
-    fillColor= project.BLACK;
+    fillColor= project.colorData.BLACK;
   }
 
   public ShapeData(PVector position, PVector size, color fillColor)
@@ -57,32 +57,11 @@ class ShapeData
   public PVector GetSize() {
     return this.size;
   }
-
-  public void SetFillColor(color fillColor)
-  {
-    this.fillColor=fillColor;
-  }
-  public void SetRotation(float radians)
-  {
-    rotation=radians;
-     customShape.rotate(rotation);
-  }
-
-  public void SetShape(PShape incomingShape, PVector position, PVector size)
-  {
-    customShape=incomingShape;
-    SetPosition(position);
-    SetSize(size);
-  }
-
-  public PVector GetFillColorAsPVector()
-  {
-    return new PVector(red(this.fillColor), green(this.fillColor), blue(this.fillColor));
-  }
+  
   public void Draw()
   {
-    fill(fillColor);
-   
+    
+   fill(fillColor);
     shape(customShape, position.x, position.y);
   }
 }

@@ -74,7 +74,7 @@ class Anim extends ShapeUpdate implements IUpdate
       shapeData.rotation=value.x;
       break;
     case COLOR:
-      shapeData.SetFillColor(color(value.x, value.y, value.z));
+      shapeData.fillColor=color(value.x, value.y, value.z);
       break;
     case SIZE:
       shapeData.SetSize(value);

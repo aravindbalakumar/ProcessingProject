@@ -6,11 +6,11 @@ public class Rain
     {
       var drop=new RainDrop(GetRandomPointAtTop());
       drop.Initialize();
-    project.updateObjects.add(drop);
+    project.UpdateObjects.add(drop);
     }
   }
   public PVector GetRandomPointAtTop()
   {
-   return new PVector(random(project.BOUNDS_MIN.x,project.BOUNDS_MAX.x),project.BOUNDS_MIN.y+(random(55,project.BOUNDS_MAX.y-project.BOUNDS_MIN.y)));
+   return new PVector(random(0,width),(random(0,height)));
   }
 }
