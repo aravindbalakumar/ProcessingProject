@@ -37,7 +37,7 @@ public class HexagonPathRunner
       children.add(child);
       // the child hexagons are being assigned to follow beind the parent shape with a offset value
       // this value is set in awy to mimic the  as if the the child hexagons are following the parent by a slight delay creating a visual symmetry with the hexagons
-      child.Follow(parent.shape, constrain(children.size()*0.25, 0, 1.0)); 
+      child.Follow(parent.shape, constrain((children.size()*0.15), 0, 1.0)); 
       //project.UpdateObjects.add(child);
       CreatePathRunners(new PVector(hex.position.x+size, hex.position.y+size), size*0.835);
     }
