@@ -19,7 +19,7 @@ public class MovingText implements IUpdate
   public void InitializeAnimation(PVector start, PVector destination, color fillColor, float transitionDuration, float holdDuration)
   {
     this.start=start;
-    this.textColor=fillColor;
+    this.textColor=color(fillColor,64);
     this.destination=destination;
     this.transitionDuration=transitionDuration;
     this.holdDuration=holdDuration;
