@@ -25,7 +25,7 @@ void draw()
     object.Update();
   }
 }
-
+///iniitialize all core components
 void Initialize()
 {
   MinBounds= new PVector(100, 100);

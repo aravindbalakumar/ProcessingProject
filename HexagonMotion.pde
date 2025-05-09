@@ -1,4 +1,4 @@
-/// hexagon motion is the class that intializes and handles all the hexagon motion implements IUpdate interface  //<>//
+/// hexagon motion is the class that intializes and handles all the hexagon motion implements IUpdate interface //<>//
 public class HexagonMotion implements IUpdate
 {
   float time=0, delay;// time and delay to delay accordingly for the screens

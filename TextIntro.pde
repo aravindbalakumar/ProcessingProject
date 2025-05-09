@@ -7,7 +7,7 @@ public class TextIntro
     for (int i=0; i<textCounts; i++)
     {
       MovingText floatText= new MovingText(content,50);
-      floatText.IntializeAnimation(new PVector(random(project.MinBounds.y,project.MaxBounds.y),random(project.MinBounds.y,project.MaxBounds.y)),new PVector(width/2,height/2),project.colorData.GetRandomColor(),transitionDuration,holdDuration);
+      floatText.InitializeAnimation(new PVector(random(project.MinBounds.y,project.MaxBounds.y),random(project.MinBounds.y,project.MaxBounds.y)),new PVector(width/2,height/2),project.colorData.GetRandomColor(),transitionDuration,holdDuration);
       project.UpdateObjects.add(floatText);
     }
   }

@@ -16,7 +16,7 @@ public class MovingText implements IUpdate
 
     this.textSize=textSize;
   }
-  public void IntializeAnimation(PVector start, PVector destination, color fillColor, float transitionDuration, float holdDuration)
+  public void InitializeAnimation(PVector start, PVector destination, color fillColor, float transitionDuration, float holdDuration)
   {
     this.start=start;
     this.textColor=fillColor;

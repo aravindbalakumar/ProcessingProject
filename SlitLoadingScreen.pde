@@ -6,7 +6,7 @@ public class SlidingSlitLoadingScreen
   {
     widthPerSeg=width/slitCounts;
     float animDuration=4.5f;
-    ShapeManager fullScreen= new ShapeManager( new RectShapeData(new PVector( width/2, height/2), new PVector( width, height),project.colorData.BLACK,-2), (delay+animDuration)-0.01);
+    ShapeManager fullScreen= new ShapeManager( new RectShape(new PVector( width/2, height/2), new PVector( width, height),colorData.BLACK,-2), (delay+animDuration)-0.01);
     project.UpdateObjects.add(fullScreen);
     for (int i=0; i<slitCounts; i++)
     {
@@ -16,12 +16,12 @@ public class SlidingSlitLoadingScreen
 
       PVector bot_size=new PVector(widthPerSeg, botHeightSeg);
       PVector bot_pos=new PVector(i*widthPerSeg +bot_size.x/2, height+botHeightSeg/2);
-      RectShapeData bot_rect= new RectShapeData(bot_pos, bot_size, project.colorData.BLACK, -2);
+      RectShape bot_rect= new RectShape(bot_pos, bot_size, colorData.BLACK, -2);
       bot_rect.fillColor=project.colorData.BLACK;
 
       PVector top_size=new PVector(widthPerSeg, topHeightSeg);
       PVector top_pos=new PVector(i*widthPerSeg+top_size.x/2, -topHeightSeg/2);
-      RectShapeData top_rect= new RectShapeData(top_pos, top_size, project.colorData.BLACK, -2);
+      RectShape top_rect= new RectShape(top_pos, top_size, colorData.BLACK, -2);
       top_rect.fillColor=project.colorData.BLACK;
 
       project.UpdateObjects.add(
