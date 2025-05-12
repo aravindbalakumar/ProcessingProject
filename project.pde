@@ -31,7 +31,7 @@ void Initialize()
   MinBounds= new PVector(100, 100);
   MaxBounds= new PVector(width-MinBounds.x, height-MinBounds.y); // to restrict certain elements going out of bounds
   colorData= new ColorData();
-  bounceSound = new SoundFile(this, "Assets/bounce.mp3"); 
+  bounceSound = new SoundFile(this, "Assets/bounce.mp3");
   bounceSound.amp(0.0001);
   font=createFont("Assets/Roboto.ttf", 48);
   timer= new  Timer();

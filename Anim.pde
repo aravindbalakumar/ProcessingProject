@@ -1,5 +1,5 @@
 
-/// this Class is just created to handle animation which is an child class of shapeupdate 
+/// this Class is just created to handle animation which is an child class of shapeupdate
 class Anim extends ShapeManager
 {
 
@@ -54,7 +54,7 @@ class Anim extends ShapeManager
         hasEnded=true;
       }
     }
-    
+
     if (!hasEnded) {
       // if it is still not ended increment the time by delta secs
       time+=project.timer.deltaSecs;

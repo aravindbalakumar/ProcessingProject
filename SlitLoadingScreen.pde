@@ -2,11 +2,11 @@
 public class SlidingSlitLoadingScreen
 {
   int widthPerSeg=0;
-  public SlidingSlitLoadingScreen(int slitCounts,float delay)
+  public SlidingSlitLoadingScreen(int slitCounts, float delay)
   {
     widthPerSeg=width/slitCounts;
     float animDuration=4.5f;
-    ShapeManager fullScreen= new ShapeManager( new RectShape(new PVector( width/2, height/2), new PVector( width, height),colorData.BLACK,-2), (delay+animDuration)-0.01);
+    ShapeManager fullScreen= new ShapeManager( new RectShape(new PVector( width/2, height/2), new PVector( width, height), colorData.BLACK, -2), (delay+animDuration)-0.01);
     project.UpdateObjects.add(fullScreen);
     for (int i=0; i<slitCounts; i++)
     {

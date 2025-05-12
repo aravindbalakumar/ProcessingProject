@@ -2,14 +2,14 @@
 public class MovingText implements IUpdate
 {
   String content;
-  PVector start; 
+  PVector start;
   PVector destination;
-  color textColor; 
-  float time; 
+  color textColor;
+  float time;
   float transitionDuration; // amount to time required to reach the destination
   float holdDuration; // amount of duration the text should be held to drawn
-  float textSize;  
-  boolean transitionDone, doneFully; 
+  float textSize;
+  boolean transitionDone, doneFully;
   public MovingText(String content, float textSize )
   {
     this.content=content;
@@ -19,7 +19,7 @@ public class MovingText implements IUpdate
   public void InitializeAnimation(PVector start, PVector destination, color fillColor, float transitionDuration, float holdDuration)
   {
     this.start=start;
-    this.textColor=color(fillColor,64);
+    this.textColor=color(fillColor, 64);
     this.destination=destination;
     this.transitionDuration=transitionDuration;
     this.holdDuration=holdDuration;
@@ -38,7 +38,7 @@ public class MovingText implements IUpdate
       if (!transitionDone) {
         if (time<=transitionDuration) // checks wether the time has reached the transition duration
         {
-          PVector location= PVector.lerp(start, destination, time/transitionDuration); // lerps the location between start and destination 
+          PVector location= PVector.lerp(start, destination, time/transitionDuration); // lerps the location between start and destination
           // the time/transitionDuration will give the lerp percentage
           text(content, location.x, location.y);
           time+=project.timer.deltaSecs;
@@ -49,16 +49,15 @@ public class MovingText implements IUpdate
         }
       } else
       {
-        if (time<=holdDuration) 
+        if (time<=holdDuration)
         {
           text(content, destination.x, destination.y);
           time+=project.timer.deltaSecs;
         } else {
-          doneFully=true; // set the done fully bool to true, 
+          doneFully=true; // set the done fully bool to true,
         }
       }
-       popStyle();
+      popStyle();
     }
-   
   }
 }

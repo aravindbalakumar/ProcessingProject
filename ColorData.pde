@@ -11,8 +11,8 @@ public class ColorData
     //primary for b
     WHITE= color(255, 255, 255);
     BLACK=color(0, 0, 0);
-    
-    secondaryColors= new ArrayList<Integer>();// secondary colors 
+
+    secondaryColors= new ArrayList<Integer>();// secondary colors
 
     secondaryColors.add(#ff9900);//orange
     secondaryColors.add(#cc3399); //purple
@@ -23,12 +23,10 @@ public class ColorData
     secondaryColors.add(#c19233);//Brown
     secondaryColors.add(#4169E1);// dark blue
     secondaryColors.add(#E6E6FA);//lavanderish purple
-    
-    
   }
   // returns a random color from the pool of secondary color;
   public color GetRandomColor()
   {
-   return secondaryColors.get(int(random(0,secondaryColors.size()-1)));
+    return secondaryColors.get(int(random(0, secondaryColors.size()-1)));
   }
 }

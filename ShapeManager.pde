@@ -9,7 +9,7 @@ class ShapeManager implements IUpdate
   float delayedStart;
   float time;
   float offset;
-  PVector p1, cp_1,cp_2 ,p2;
+  PVector p1, cp_1, cp_2, p2;
   public Shape shape;
   PShape path=null, curve, start, end;
   Shape  shapeToFollow;
@@ -29,7 +29,7 @@ class ShapeManager implements IUpdate
     shouldFollow=true;
   }
 
-  public void MoveOnCruvedPath(PVector p1, PVector cp_1,PVector cp_2, PVector p2, float travelDuration) //bezier cubic path used
+  public void MoveOnCruvedPath(PVector p1, PVector cp_1, PVector cp_2, PVector p2, float travelDuration) //bezier cubic path used
   {
     this.p1=p1;
     this.cp_1=cp_1;
@@ -39,22 +39,22 @@ class ShapeManager implements IUpdate
     {
       path=null;
     }
-    
+
     // startin dot shape
     pushStyle();
     stroke(shape.fillColor);
     noFill();
-    start= createShape(ELLIPSE, p1.x, p1.y, 10, 10);// size of 10 is kept to properly align witth the hexagons 
+    start= createShape(ELLIPSE, p1.x, p1.y, 10, 10);// size of 10 is kept to properly align witth the hexagons
     popStyle();
-    
+
     // endng  shape
     pushStyle();
     fill(shape.fillColor);
     noStroke();
     end= createShape(ELLIPSE, p2.x, p2.y, 10, 10);
     popStyle();
-    
-    
+
+
     //stroke(shapeData.fillColor);
     noFill();
     curve= createShape();
@@ -62,7 +62,7 @@ class ShapeManager implements IUpdate
     curve.stroke(shape.fillColor);
     curve.curveVertex(p1.x, p1.y, shape.layer);// usef of curve vertex to show how the curve looks smoothly
     for (float i=0; i<1.05; i=i+0.05) {
-      var point=GetPointOnBeizerCurve(p1, cp_1,cp_2, p2, i);
+      var point=GetPointOnBeizerCurve(p1, cp_1, cp_2, p2, i);
       curve.curveVertex(point.x, point.y, shape.layer);
     }
     curve.curveVertex(p2.x, p2.y, shape.layer);
@@ -79,14 +79,14 @@ class ShapeManager implements IUpdate
 
 
   // returns the vector at point p
-  public PVector GetPointOnBeizerCurve(PVector p1, PVector cp_1, PVector cp_2,PVector p2, float percent)
+  public PVector GetPointOnBeizerCurve(PVector p1, PVector cp_1, PVector cp_2, PVector p2, float percent)
   {
     PVector point=null;
     PVector a= PVector.lerp(p1, cp_1, percent);
     PVector b= PVector.lerp(cp_1, cp_2, percent);
     PVector c= PVector.lerp(cp_2, p2, percent);
-    PVector d= PVector.lerp(a,b,percent);
-    PVector e= PVector.lerp(b,c,percent);
+    PVector d= PVector.lerp(a, b, percent);
+    PVector e= PVector.lerp(b, c, percent);
     point= PVector.lerp(d, e, percent);
     return point;
   }
@@ -113,7 +113,7 @@ class ShapeManager implements IUpdate
         if (time<=travelDuration)
         {
 
-          shape.position=GetPointOnBeizerCurve(p1, cp_1,cp_2 ,p2, time/travelDuration);
+          shape.position=GetPointOnBeizerCurve(p1, cp_1, cp_2, p2, time/travelDuration);
           time+=project.timer.deltaSecs;
         } else
         {
@@ -121,9 +121,9 @@ class ShapeManager implements IUpdate
           shape.position=p2;
           isItMovingOnPath=false;
         }
-        if(!disablePathForDebug)
+        if (!disablePathForDebug)
         {
-        shape(path, 0, 0);
+          shape(path, 0, 0);
         }
       }
       if (shouldFollow) {
